@@ -159,6 +159,9 @@ class Margin(Model):
 
 ### Comparision of real-time market data API 
 The pros and cons of popular market data APIs including Twelve Data, IEX Cloud, Alpha Vantage with a real-time plan, Yahoo Finance, Moomoo and IBKR
+- Tried IBKR, real time data is too expensive, charges by usage
+- Tried Moomoo, real time data for US stock is charged, but HK stock is free
+- Will try **Alpha Vantage** soon.
 
 |<p>Feature/</p><p>Provider</p>|<p>Twelve</p><p>Data</p>|IEX Cloud|<p>Alpha</p><p>Vantage</p>|<p>Yahoo</p><p>Finance</p>|Moomoo|<p>Interactive</p><p>Brokers</p>|
 | :- | :- | :- | :- | :- | :- | :- |
