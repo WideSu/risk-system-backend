@@ -115,13 +115,16 @@ class Margin(Model):
     margin_requirement = fields.FloatField()
     loan = fields.FloatField()
 ```
-# Architecture
-- Backend: FastAPI
-- Realtime Trading API: Yahoo Finance
-- Middleware: Tortoise ORM
-- Database: PostgreSQL 14.17
-- Dependencies: Python 3.10.9 and requirements.txt
-### Comparision of backend framework
+# Tech Stack
+
+| Component                  | Description                                                                 | URL                                       |
+|----------------------------|-----------------------------------------------------------------------------|-------------------------------------------|
+| **Backend Framework**: FastAPI        | A modern, fast (high-performance) web framework for building APIs with Python 3.7+. It's easy to use, based on standard Python type hints. | [FastAPI Documentation](https://fastapi.tiangolo.com/) |
+| **Realtime Trading API**: Yahoo Finance | Provides access to stock market data, historical data, and financial news. It is used for fetching real-time market prices and historical stock information. | [Yahoo Finance](https://www.yahoofinanceapi.com/) |
+| **Middleware**: Tortoise ORM | An easy-to-use asyncio ORM (Object Relational Mapper) built for Python with support for asynchronous programming, commonly used with databases like PostgreSQL. | [Tortoise ORM GitHub](https://github.com/tortoise/tortoise-orm) |
+| **Database**: PostgreSQL 14.17 | A powerful, open-source object-relational database system, known for its scalability, reliability, and extensibility. | [PostgreSQL Official Site](https://www.postgresql.org/) |
+| **Dependencies**: Python 3.10.9 and `requirements.txt` | The version of Python used for the application along with a `requirements.txt` file to specify all necessary dependencies. | [Python Official Site](https://www.python.org/) |
+### Comparision of backend frameworks
 | Feature           | FastAPI              | Django                 | Flask                  | Tornado                | Pyramid                |
 |------------------|---------------------|------------------------|------------------------|------------------------|------------------------|
 | **Type**         | Asynchronous (ASGI)  | Synchronous (WSGI)     | Synchronous (WSGI)     | Asynchronous (ASGI)    | Synchronous (WSGI)     |
