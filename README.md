@@ -108,12 +108,14 @@ class MarketData(Model):
     timestamp = fields.DatetimeField()
 ```
 ## 4. Margin
-Stores margin requirements for clients.
+Stores margin requirements for clients. If we store all the historical margin requirement for clients, it is a big burden for database. So I choose to calculate portfolio values on the fly.
 ```{python}
 class Margin(Model):
-    client = fields.ForeignKeyField("models.Client", related_name="margins")
+    id = fields.IntField(pk=True)  # Auto-increment primary key
+    client = fields.ForeignKeyField("models.Client", related_name="margins", on_delete=fields.CASCADE)
     margin_requirement = fields.FloatField()
     loan = fields.FloatField()
+    timestamp = fields.DatetimeField(default=datetime.datetime.now)
 ```
 # Tech Stack
 
