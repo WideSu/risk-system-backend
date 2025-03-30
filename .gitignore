@@ -1,3 +1,9 @@
 /.DS_Store
 /MMAPI4Python_9.1.5108
+# Ignore .DS_Store files (macOS specific)
+.DS_Store
+
+# Ignore __pycache__ directories (Python bytecode)
+__pycache__/
+
 /__pycache__
