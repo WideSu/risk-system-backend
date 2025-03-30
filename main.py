@@ -3,8 +3,6 @@ from decimal import ROUND_UP, Decimal
 from fastapi import FastAPI, HTTPException
 from yfinance import Ticker
 from tortoise import Tortoise
-from datetime import datetime, timezone
-from db_config import init_db
 from models import Client, Margin, MarketData
 from utils.logging.logging_decorator import log_function
 from utils.yfiance import fetch_latest_price

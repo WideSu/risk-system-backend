@@ -1,5 +1,11 @@
-# Overview
-This FastAPI application provides APIs for fetching stock data, managing client positions, and monitoring margin requirements. It interacts with a PostgreSQL database using Tortoise ORM and retrieves real-time stock prices using Yahoo Finance.
+# Risk System Backend
+## Overview
+This backend project powers a Risk Management System designed to fetch stock data, manage client positions, and monitor margin requirements in real-time. Built using FastAPI for rapid API development, it utilizes Tortoise ORM with PostgreSQL as the database, and integrates Yahoo Finance to fetch live stock prices. Additionally, the system uses OAuth2 authentication for secure access to the APIs.
+## Key Features
+- OAuth2 Authentication: Secure login and token-based authentication for clients, ensuring that only authorized users can access the system’s data.
+- Stock Data Fetching: Real-time stock data retrieval using Yahoo Finance API, storing and updating market prices regularly.
+- Client Position Management: Allows users to view and manage client stock positions, including the symbol, quantity, and cost basis.
+- Margin Requirement Monitoring: Calculates and monitors margin requirements for each client based on their portfolio, highlighting any margin shortfalls or triggering margin calls.
 # Setup Instructions
 ## Step 1. Create virtual env
 ```{shell}
@@ -118,7 +124,7 @@ class Margin(Model):
     timestamp = fields.DatetimeField(default=datetime.datetime.now)
 ```
 # Tech Stack
-
+## Overview of the tools that we use
 | Component                  | Description                                                                 | URL                                       |
 |----------------------------|-----------------------------------------------------------------------------|-------------------------------------------|
 | **Backend Framework**: FastAPI        | A modern, fast (high-performance) web framework for building APIs with Python 3.7+. It's easy to use, based on standard Python type hints. | [FastAPI Documentation](https://fastapi.tiangolo.com/) |
@@ -126,7 +132,7 @@ class Margin(Model):
 | **Middleware**: Tortoise ORM | An easy-to-use asyncio ORM (Object Relational Mapper) built for Python with support for asynchronous programming, commonly used with databases like PostgreSQL. | [Tortoise ORM GitHub](https://github.com/tortoise/tortoise-orm) |
 | **Database**: PostgreSQL 14.17 | A powerful, open-source object-relational database system, known for its scalability, reliability, and extensibility. | [PostgreSQL Official Site](https://www.postgresql.org/) |
 | **Dependencies**: Python 3.10.9 and `requirements.txt` | The version of Python used for the application along with a `requirements.txt` file to specify all necessary dependencies. | [Python Official Site](https://www.python.org/) |
-### Comparision of backend frameworks
+## Comparision of backend frameworks
 | Feature           | FastAPI              | Django                 | Flask                  | Tornado                | Pyramid                |
 |------------------|---------------------|------------------------|------------------------|------------------------|------------------------|
 | **Type**         | Asynchronous (ASGI)  | Synchronous (WSGI)     | Synchronous (WSGI)     | Asynchronous (ASGI)    | Synchronous (WSGI)     |
@@ -140,7 +146,7 @@ class Margin(Model):
 | **Documentation**| Excellent            | Extensive              | Good                   | Moderate               | Moderate               |
 | **Community Support** | Growing          | Very Large             | Large                  | Small                  | Moderate               |
 
-### Comparision of database
+## Comparision of database
 | Feature                         | Oracle Database       | Microsoft SQL Server  | PostgreSQL          | MySQL               | MongoDB            | Redis              |
 |---------------------------------|-----------------------|-----------------------|---------------------|---------------------|--------------------|--------------------|
 | **Primary Use Case**            | Enterprise-level transactions and analytics | Enterprise-level transactions | Data warehousing, financial analysis | Transactional systems, analytics | NoSQL document-based storage | Caching, high-speed transactions |
@@ -159,7 +165,7 @@ class Margin(Model):
 | **Cloud Deployment**            | Yes (Oracle Cloud, AWS, Azure, GCP) | Yes (Azure)           | Yes (AWS, Azure, GCP) | Yes (AWS, Azure, GCP) | Yes (AWS, Azure, GCP) | Yes (AWS, Azure, GCP) |
 | **Industry Adoption**           | Widely adopted in banking, investment firms, insurance | Widely adopted in banking, corporate finance | Widely used in analytics, fintech, startups | Widely used in fintech, startups, web applications | Increasing in fintech for unstructured data | Popular for caching in high-performance environments |
 
-### Comparision of real-time market data API 
+## Comparision of real-time market data API 
 The pros and cons of popular market data APIs including Twelve Data, IEX Cloud, Alpha Vantage with a real-time plan, Yahoo Finance, Moomoo and IBKR
 - Tried IBKR, real time data is too expensive, charges by usage
 - Tried Moomoo, real time data for US stock is charged, but HK stock is free
@@ -175,3 +181,25 @@ The pros and cons of popular market data APIs including Twelve Data, IEX Cloud, 
 |<p>Premium Plan</p><p>Cost</p>|<p>$29/</p><p>month</p>|$9/month|<p>$29.99/</p><p>month</p>|Free|Free|Depends on equity and subsctiption fee|
 |<p>Additional</p><p>Features</p>|<p>Crypto,</p><p>Forex</p>|<p>Financials,</p><p>News</p>|<p>Technical</p><p>Indicators</p>|Basic Data|<p>Charting,</p><p>Trading</p>|<p>Advanced</p><p>Trading Tools</p>|
 
+## Comparision of authorization framework
+- OAuth2 → Best for API security (but lacks authentication).
+- OpenID Connect (OIDC) → Adds authentication to OAuth2 (good for logins).
+- SAML → Used for enterprise SSO (corporate environments).
+- JWT → Lightweight, stateless token-based auth (good for microservices & APIs).
+| Feature           | OAuth2.0 | OpenID Connect (OIDC) | SAML | JWT |
+|------------------|---------|----------------------|------|-----|
+| **Type**        | Authorization | Authentication + Authorization | Authentication + Authorization | Token-based Authorization |
+| **Token Type**  | Access Token | ID Token + Access Token | SAML Assertion | JWT (HS256/RS256) |
+| **Stateful?**   | Optional | Optional | Usually Stateful | Stateless |
+| **Use Case**    | API Security, Delegated Auth | SSO, API Security | Enterprise SSO | API Auth, Microservices |
+| **Third-Party Auth** | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No (Self-contained) |
+| **Requires Identity Provider?** | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No |
+| **Common Usage** | Google Login, GitHub OAuth | Google Sign-In, Azure AD, Okta | Enterprise SSO (corporate logins) | API security, microservices |
+| **Best For**    | API authorization | Authentication + API Access | Enterprise SSO (large orgs) | Stateless API access |
+
+
+## Contributing
+Feel free to fork this repository, submit issues, or create pull requests. If you would like to contribute to the project, please follow the steps below:
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
