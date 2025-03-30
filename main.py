@@ -115,7 +115,6 @@ async def get_margin_status(clientId: int):
         print("No margin account found for client_id:", clientId)
     margin_shortfall = max(margin_account.margin_requirement - net_equity, Decimal(0)).quantize(Decimal('0.001'), rounding=ROUND_UP) 
     margin_call_triggered = margin_shortfall > 0
-    # await Margin.update_or_create(client_id = clientId, margin_requirement=margin_account.margin_requirement,loan=margin_account.loan)
     return {
         "timestamp": marketData["timestamp"],
         "clientId": clientId,
