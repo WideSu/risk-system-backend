@@ -23,13 +23,13 @@ class MarketData(Model):
     id = fields.IntField(pk=True)
     symbol = fields.CharField(max_length=50)
     current_price = fields.FloatField()
-    timestamp = fields.DatetimeField()
+    timestamp = fields.DatetimeField(default=datetime.datetime.now)
     def __repr__(self):
         return f"<MarketData(id={self.id}, symbol={self.symbol}, current_price={self.current_price}, timestamp={self.timestamp})>"
 
 class Margin(Model):
-    client = fields.ForeignKeyField("models.Client", related_name="margins", pk=True, null=False)
+    id = fields.IntField(pk=True)  # Auto-increment primary key
+    client = fields.ForeignKeyField("models.Client", related_name="margins", on_delete=fields.CASCADE)
     margin_requirement = fields.FloatField()
     loan = fields.FloatField()
-    def __repr__(self):
-        return f"<Margin(loan={self.loan}, symbol={self.margin_requirement}>"
+    timestamp = fields.DatetimeField(default=datetime.datetime.now)

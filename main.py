@@ -106,10 +106,13 @@ async def get_margin_status(clientId: int):
     
     net_equity = Decimal(total_value) - Decimal(margin_account.loan).quantize(Decimal('0.001'), rounding=ROUND_UP) 
     margin_account.margin_requirement = (Decimal(total_value) * Decimal(config.MMR)).quantize(Decimal('0.001'), rounding=ROUND_UP)  # Example margin requirement calculation
-    margin, created = await Margin.update_or_create(
-        client_id=clientId,
-        defaults={'margin_requirement': margin_account.margin_requirement, 'loan': margin_account.loan}
-    )
+    if margin_account:
+        margin, created = await Margin.update_or_create(
+            client_id=clientId,  # <-- This ensures we are updating a specific record
+            defaults={'margin_requirement': margin_account.margin_requirement, 'loan': margin_account.loan}
+        )
+    else:
+        print("No margin account found for client_id:", clientId)
     margin_shortfall = max(margin_account.margin_requirement - net_equity, Decimal(0)).quantize(Decimal('0.001'), rounding=ROUND_UP) 
     margin_call_triggered = margin_shortfall > 0
     # await Margin.update_or_create(client_id = clientId, margin_requirement=margin_account.margin_requirement,loan=margin_account.loan)
