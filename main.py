@@ -5,7 +5,7 @@ from yfinance import Ticker
 from tortoise import Tortoise
 from models import Client, Margin, MarketData
 from utils.logging.logging_decorator import log_function
-from utils.yfiance import fetch_latest_price
+from utils.yfinance.yfinance_stock_utils import fetch_latest_price
 import logging
 import config
 

@@ -186,6 +186,7 @@ The pros and cons of popular market data APIs including Twelve Data, IEX Cloud, 
 - OpenID Connect (OIDC) → Adds authentication to OAuth2 (good for logins).
 - SAML → Used for enterprise SSO (corporate environments).
 - JWT → Lightweight, stateless token-based auth (good for microservices & APIs).
+
 | Feature           | OAuth2.0 | OpenID Connect (OIDC) | SAML | JWT |
 |------------------|---------|----------------------|------|-----|
 | **Type**        | Authorization | Authentication + Authorization | Authentication + Authorization | Token-based Authorization |
