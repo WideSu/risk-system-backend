@@ -91,7 +91,7 @@ GET /margin/{clientId}
 ```
 # Database Models
 
-<img width="300" alt="image" src="images/database.png" />
+<img width="600" alt="image" src="images/database.png" />
 
 ## 1. Client
 Stores client details.
