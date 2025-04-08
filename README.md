@@ -2,7 +2,7 @@
 ## Overview
 This backend project powers a Risk Management System designed to fetch stock data, manage client positions, and monitor margin requirements in real-time. Built using FastAPI for rapid API development, it utilizes Tortoise ORM with PostgreSQL as the database, and integrates Yahoo Finance to fetch live stock prices. Additionally, the system uses OAuth2 authentication for secure access to the APIs.
 
-<img width="1332" alt="image" src="https://github.com/user-attachments/assets/ab67edd0-5ec0-47da-891d-197b7a17909e" />
+<img width="1332" alt="image" src="images/software_architecture_overview.png" />
 
 ## Key Features
 - OAuth2 Authentication: Secure login and token-based authentication for clients, ensuring that only authorized users can access the system’s data.
@@ -90,6 +90,9 @@ GET /margin/{clientId}
 }
 ```
 # Database Models
+
+<img width="1332" alt="image" src="images/database.png" />
+
 ## 1. Client
 Stores client details.
 ```{python}
