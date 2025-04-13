@@ -7,14 +7,14 @@ from models import Client, Margin, MarketData
 from utils.logging.logging_decorator import log_function
 from utils.yfinance.yfinance_stock_utils import fetch_latest_price
 import logging
-import config
+import os
 
 # Run the app and initialize the database when the app starts
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
         await Tortoise.init(
-            db_url=config.DATABASE_URL,
+            db_url=os.getenv("DATABASE_URL"),
             modules={'models': ['models']}
         )
         await Tortoise.generate_schemas()

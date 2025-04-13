@@ -152,6 +152,20 @@ class Margin(Model):
 | **Documentation**| Excellent            | Extensive              | Good                   | Moderate               | Moderate               |
 | **Community Support** | Growing          | Very Large             | Large                  | Small                  | Moderate               |
 
+## Code structure
+```
+risk-system-backend/
+├── main.py                # Core application logic and API endpoints
+├── auth.py                # Authentication-related APIs and utilities
+├── models.py              # Database models
+├── utils/
+│   ├── logging/           # Logging utilities
+│   ├── yfinance/          # Yahoo Finance utilities
+├── config.py              # Configuration settings (e.g., DATABASE_URL, SECRET_KEY)
+├── requirements.txt       # Python dependencies
+└── README.md              # Documentation
+```
+
 ## Comparision of database
 | Feature                         | Oracle Database       | Microsoft SQL Server  | PostgreSQL          | MySQL               | MongoDB            | Redis              |
 |---------------------------------|-----------------------|-----------------------|---------------------|---------------------|--------------------|--------------------|
