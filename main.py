@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from decimal import ROUND_UP, Decimal
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from yfinance import Ticker
 from tortoise import Tortoise
@@ -9,24 +10,25 @@ from utils.yfinance.yfinance_stock_utils import fetch_latest_price
 import logging
 import os
 
-# Run the app and initialize the database when the app starts
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    try:
-        await Tortoise.init(
-            db_url=os.getenv("DATABASE_URL"),
-            modules={'models': ['models']}
-        )
-        await Tortoise.generate_schemas()
-        yield  # Everything inside FastAPI runs here
-    except Exception as e:
-        logging.error(f"Error during database initialization: {e}")
-        raise HTTPException(status_code=500, detail="Database initialization failed")
-    finally:
-        await Tortoise.close_connections()
+load_dotenv(".env.local")
+app = FastAPI()
 
-# Initialize FastAPI app
-app = FastAPI(lifespan=lifespan)
+DB_URL = os.getenv("DATABASE_URL")
+
+# Lifespan management to ensure proper connection setup and teardown
+@app.on_event("startup")
+async def startup_event():
+    # Initialize the database connection
+    await Tortoise.init(
+        db_url=DB_URL,  # or your PostgreSQL/MySQL URL
+        modules={"models": ["models"]}   # Replace with actual path to your models
+    )
+    await Tortoise.generate_schemas()  # If you want to generate schemas automatically
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    # Close the database connection during shutdown
+    await Tortoise.close_connections()
 
 # Function to fetch stock data from Yahoo Finance
 @log_function
