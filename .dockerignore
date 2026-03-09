@@ -1,0 +1,27 @@
+# Virtual environment
+.venv
+venv
+env
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Environment files (use -e DATABASE_URL=... at runtime)
+.env*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+
+# Misc
+*.md
+.DS_Store

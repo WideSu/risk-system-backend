@@ -10,33 +10,100 @@ This backend project powers a Risk Management System designed to fetch stock dat
 - Client Position Management: Allows users to view and manage client stock positions, including the symbol, quantity, and cost basis.
 - Margin Requirement Monitoring: Calculates and monitors margin requirements for each client based on their portfolio, highlighting any margin shortfalls or triggering margin calls.
 # Setup Instructions
-## Step 1. Create virtual env
-```{shell}
-python -m venv venv
+There are two ways to set up and run this backend:
+- Option A: Virtual environment (local Python)
+- Option B: Docker (using the provided `Dockerfile`)
+
+## Option A. Virtual environment (local)
+### Step 1. Create a virtual environment
+
+```bash
+python3 -m venv .venv
 ```
-## Step 2. Activate then install Dependencies
+
+### Step 2. Activate it
 For macOS/Linux:
-```{shell}
-source venv/bin/activate
+
+```bash
+source .venv/bin/activate
 ```
-For Windows (Command Prompt):
-```{shell}
-venv\Scripts\Activate.ps1
+
+For Windows (PowerShell):
+
+```powershell
+.venv\\Scripts\\Activate.ps1
 ```
-## Step 3. Install Dependencies
-```{shell}
+
+### Step 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
-## Step 4. Setup Database
-Modify the `DATABASE_URL` in `config.py` to point to your PostgreSQL instance.
 
-## Step 5. Run main.py in virtual env
-```{shell}
-python3 main.py
+### Step 4. Configure environment variables
+Create a `.env.local` file in `risk-system-backend/`:
+
+```bash
+DATABASE_URL=postgres://postgres:YOUR_PASSWORD@localhost:5432/risk_system
+SECRET_KEY=change_me
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
-## Step 6. Run insert_data.py to create some clients data
-```{shell}
+
+### Step 5. Ensure PostgreSQL is running
+Create the database if needed:
+
+```bash
+sudo -u postgres createdb risk_system
+```
+
+### Step 6. Run the API
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Open `http://127.0.0.1:8000/docs` to see the Swagger UI.
+
+### Step 7. (Optional) Insert sample data
+
+```bash
 python3 insert_data.py
+```
+
+## Option B. Docker (Dockerfile)
+### Step 1. Build the image
+
+```bash
+docker build -t risk-system-backend .
+```
+
+### Step 2. Run the container
+This service needs access to PostgreSQL via `DATABASE_URL`.
+
+#### Linux (recommended): use host networking
+On many Linux setups PostgreSQL listens only on `127.0.0.1`, which is not reachable from a container on the default bridge network.
+Using host networking is the simplest way to connect to the host's PostgreSQL:
+
+```bash
+docker run --rm --network host \\
+  -e DATABASE_URL="postgres://postgres:YOUR_PASSWORD@127.0.0.1:5432/risk_system" \\
+  -e SECRET_KEY="change_me" \\
+  -e ALGORITHM="HS256" \\
+  -e ACCESS_TOKEN_EXPIRE_MINUTES=30 \\
+  risk-system-backend
+```
+
+#### Alternative: use `--env-file`
+
+```bash
+docker run --rm --network host --env-file .env.local risk-system-backend
+```
+
+### Step 3. Verify it is working
+
+```bash
+curl -I http://127.0.0.1:8000/docs
 ```
 
 # API Endpoints
