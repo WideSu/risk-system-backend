@@ -4,7 +4,8 @@ import datetime
 
 class Client(Model):
     id = fields.IntField(pk=True)
-    name = fields.CharField(max_length=255)
+    name = fields.CharField(max_length=255, unique=True)
+    balance = fields.FloatField(default=0)
     positions = fields.ReverseRelation["Position"]
     margins = fields.ReverseRelation["Margin"]
     def __repr__(self):

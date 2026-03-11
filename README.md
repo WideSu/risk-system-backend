@@ -14,7 +14,8 @@ There are two ways to set up and run this backend:
 - Option A: Virtual environment (local Python)
 - Option B: Docker (using the provided `Dockerfile`)
 
-## Option A. Virtual environment (local)
+## Option A. Virtual environment
+It's more convienient for local dev enviroment since you don't need to rebuild docker everytime.
 ### Step 1. Create a virtual environment
 
 ```bash
@@ -71,10 +72,13 @@ Open `http://127.0.0.1:8000/docs` to see the Swagger UI.
 python3 insert_data.py
 ```
 
-## Option B. Docker (Dockerfile)
+## Option B. Docker (Dockerfile)-Production
+You can 
 ### Step 1. Build the image
 
 ```bash
+docker stop risk-system-backend && docker rm risk-system-backend
+docker build -t risk-system-backend .
 docker build -t risk-system-backend .
 ```
 
