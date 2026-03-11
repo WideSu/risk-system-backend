@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from tortoise import Tortoise
 from yfinance import Ticker
 
+import config
 from models import Client, Margin, MarketData
 from utils.logging.logging_decorator import log_function
 from utils.yfinance.yfinance_stock_utils import fetch_latest_price
@@ -16,14 +17,12 @@ import os
 load_dotenv(".env.local")
 app = FastAPI()
 
-DB_URL = os.getenv("DATABASE_URL")
-
 
 @app.on_event("startup")
 async def startup_event():
     await Tortoise.init(
-        db_url=DB_URL,
-        modules={"models": ["models"]}
+        db_url=config.DATABASE_URL,
+        modules={"models": ["models"]},
     )
     await Tortoise.generate_schemas()
 
